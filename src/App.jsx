@@ -1,8 +1,8 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+﻿import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Home, PlusCircle, BarChart3, BatteryCharging, CarFront, Calendar, FileText, CheckCircle2, Trash2, Edit3, X, ClipboardCopy, TrendingUp, Zap } from 'lucide-react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { getFirestore, collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc, setDoc } from 'firebase/firestore';
 
 // 1. 初始化獨立的 Firebase (加入錯誤防護機制)
 let app, auth, db;
@@ -148,18 +148,22 @@ export default function App() {
     const recordsRef = collection(db, 'my_ev_records');
 
     const unsubscribe = onSnapshot(recordsRef, (snapshot) => {
-      if (snapshot.empty && !hasSeeded.current && initialData.length > 0) {
-        hasSeeded.current = true;
-        Promise.all(initialData.map(item => addDoc(recordsRef, {
-          date: item.date,
-          charge: item.charge,
-          parking: item.parking,
-          total: item.charge + item.parking,
-          kwh: 0, 
-          notes: item.notes || '',
-          createdAt: new Date().toISOString()
-        }))).catch(console.error);
-      } else {
+     if (snapshot.empty && !hasSeeded.current && initialData.length > 0) {
+     hasSeeded.current = true;
+     Promise.all(initialData.map((item, index) => {
+       // 使用帶有編號的固定 ID，保證絕對不會重複新增
+       const importDocRef = doc(db, 'my_ev_records', `import_v1_${index}`);
+       return setDoc(importDocRef, {
+         date: item.date,
+         charge: item.charge,
+         parking: item.parking,
+         total: item.charge + item.parking,
+         kwh: 0, 
+         notes: item.notes || '',
+         createdAt: new Date().toISOString()
+       });
+     })).catch(console.error);
+   } else {
         const data = [];
         snapshot.forEach((doc) => {
           data.push({ id: doc.id, ...doc.data() });
