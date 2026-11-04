@@ -89,14 +89,17 @@ const initialData = [
   { date: '2026-07-13', charge: 105.3, parking: 5, notes: '匯入紀錄' },
   { date: '2026-07-17', charge: 101, parking: 0, notes: '匯入紀錄' },
   { date: '2026-07-18', charge: 44, parking: 0, notes: '匯入紀錄' },
-  { date: '2026-07-19', charge: 128, parking: 0, notes: '匯入紀錄' },
+  { date: '2026-07-19', charge: 128, parking: 0, kwh: 0, notes: '匯入紀錄' },
   { date: '2026-07-20', charge: 79, parking: 0, notes: '匯入紀錄' },
-  { date: '2026-08-20', charge: 136, parking: 16, notes: '匯入紀錄' },
-  { date: '2026-08-27', charge: 128, parking: 16, notes: '匯入紀錄' },
-  { date: '2026-09-02', charge: 0, parking: 30, notes: '匯入紀錄' },
-  { date: '2026-09-07', charge: 129, parking: 17, notes: '匯入紀錄' },
-  { date: '2026-09-17', charge: 123, parking: 17, notes: '匯入紀錄' },
-  { date: '2026-10-02', charge: 127, parking: 17, notes: '匯入紀錄' }
+  { date: '2026-08-20', charge: 136, parking: 16, kwh: 44, notes: '匯入紀錄' },
+  { date: '2026-08-27', charge: 128, parking: 16, kwh: 50, notes: '匯入紀錄' },
+  { date: '2026-09-02', charge: 0, parking: 30, kwh: 10, notes: '匯入紀錄' },
+  { date: '2026-09-07', charge: 129, parking: 17, kwh: 50, notes: '匯入紀錄' },
+  { date: '2026-09-17', charge: 123, parking: 17, kwh: 46, notes: '匯入紀錄' },
+  { date: '2026-10-02', charge: 127, parking: 17, kwh: 49, notes: '匯入紀錄' },
+  { date: '2026-10-14', charge: 109, parking: 17, kwh: 42, notes: '無備註' },
+  { date: '2026-10-17', charge: 45, parking: 0, kwh: 15, notes: '無備註' },
+  { date: '2026-10-31', charge: 134, parking: 23, kwh: 52, notes: '無備註' }
 ];
 
 export default function App() {
