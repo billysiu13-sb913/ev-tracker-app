@@ -145,7 +145,7 @@ export default function App() {
     if (!user || !db) return;
     
     // 獨立版的資料路徑更乾淨：直接存在 users/{uid}/ev_records
-    const recordsRef = collection(db, 'users', user.uid, 'ev_records');
+    const recordsRef = collection(db, 'my_ev_records');
 
     const unsubscribe = onSnapshot(recordsRef, (snapshot) => {
       if (snapshot.empty && !hasSeeded.current && initialData.length > 0) {
@@ -215,12 +215,12 @@ export default function App() {
 
     try {
       if (editingId) {
-        const docRef = doc(db, 'users', user.uid, 'ev_records', editingId);
+        const docRef = doc(db, 'my_ev_records', editingId);
         await updateDoc(docRef, recordData);
         setSuccessMessage('紀錄已成功更新！');
       } else {
         recordData.createdAt = new Date().toISOString();
-        const recordsRef = collection(db, 'users', user.uid, 'ev_records');
+        const recordsRef = collection(db, 'my_ev_records');
         await addDoc(recordsRef, recordData); 
         setSuccessMessage('紀錄已安全儲存至您的雲端！');
       }
@@ -249,7 +249,7 @@ export default function App() {
   const confirmDelete = async () => {
     if (!deleteConfirmId || !user) return;
     try {
-      const docRef = doc(db, 'users', user.uid, 'ev_records', deleteConfirmId);
+      const docRef = doc(db, 'my_ev_records', deleteConfirmId);
       await deleteDoc(docRef);
       setDeleteConfirmId(null);
       setSuccessMessage('紀錄已成功刪除！');
