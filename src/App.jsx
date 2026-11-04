@@ -161,7 +161,7 @@ export default function App() {
          charge: item.charge,
          parking: item.parking,
          total: item.charge + item.parking,
-         kwh: 0, 
+         kwh: item.kwh || 0, 
          notes: item.notes || '',
          createdAt: new Date().toISOString()
        });
